@@ -39,6 +39,10 @@ INSTALLED_APPS = [
     'rest_framework_simplejwt',
     'corsheaders',
 
+    # blacklist used to logout ( put the refresh token in blcklist in db so usercant access with it )
+    # u should makemigrations and migrate to blacklist table into db
+    'rest_framework_simplejwt.token_blacklist',
+
     # our app
     'accounts.apps.AccountsConfig',
     
@@ -64,6 +68,12 @@ INSTALLED_APPS = [
 # Global Authentications and Permissions (apply on all Views)
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': ['rest_framework_simplejwt.authentication.JWTAuthentication',] ,
+}
+
+SIMPLE_JWT = {
+    # Edit default jwt ( because we make changes in default token and make serialzer for it ) 
+    # It will work instead of the default serializer(TokenObtainPairSerializer).
+    "TOKEN_OBTAIN_SERIALIZER": "accounts.serializers.MyTokenObtainPairSerializer",
 }
 
 # If we used Abstract Custom user we should make this => AUTH_USER_MODEL = 'AppName.ModelNmae'

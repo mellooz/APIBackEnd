@@ -11,6 +11,8 @@ from django.dispatch import receiver
 # Django User Default fields = ['username' , 'email' , 'first_name' , 'last_name' ,  'password' , ...]
 
 class User(AbstractUser):
+    first_name = models.CharField(max_length=20)
+    last_name = models.CharField(max_length=20)
     username = models.CharField(max_length=100)
     email = models.EmailField(unique=True)
     # to make user login ONLY with email use USERNAME_FIELD = 'email'
